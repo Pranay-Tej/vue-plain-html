@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Plain HTML</title>
+  </head>
+  <body>
+    <!-- app -->
+    <div id="app">
+      {{msg}}
+      <ul>
+        <todo
+          v-for="todo of todos"
+          :key="todo.id"
+          :todo="todo"
+          @edit="fetchById"
+          @delete="deleteTodo"
+        />
+      </ul>
+      <form @submit.prevent="saveTodo">
+        <label for="title">Todo</label>
+        <input type="text" name="title" id="title" v-model="todo.title" />
+        <button type="submit">{{todo?.id ? 'Update' : 'Create'}}</button>
+        <button type="button" @click="resetTodoForm" v-if="todo.id">
+          Cancel
+        </button>
+      </form>
+      <!-- <formulate-input
+        type="text"
+        name="sample"
+        label="Sample text input"
+        placeholder="Sample placeholder"
+        help="Sample help text"
+        validation="required"
+        error-behavior="live"
+      ></formulate-input> -->
+    </div>
+
+    <!-- todo component -->
+    <script type="text/x-template" id="todo">
+      <li class="todo">
+        {{todo.title}}
+        <button @click="$emit('edit', todo.id)">Edit</button>
+        <button @click="$emit('delete', todo.id)">Delete</button>
+      </li>
+    </script>
+
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <!-- <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.js"></script> -->
+    <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@braid/vue-formulate@2.5.2/dist/formulate.min.js"></script> -->
+    <script src="scripts.js"></script>
+  </body>
+</html>
